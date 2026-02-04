@@ -1,0 +1,1672 @@
+🚀 COMPLETE AI COMIC GENERATOR FRONTEND - FULL PROJECT PROMPT
+You are building the COMPLETE frontend for an AI Comic Book Generator web application from scratch.
+
+═══════════════════════════════════════════════════════════════════
+PROJECT OVERVIEW
+═══════════════════════════════════════════════════════════════════
+
+WHAT THIS APP DOES:
+An AI-powered web application that generates complete 10-14 page comic books based on user input. Users enter a topic, select art style, and the system generates a full comic with dialogue, emotions, and professional panel layouts.
+
+BACKEND STATUS:
+- Already built and running at http://localhost:8000
+- FastAPI backend with AI models (LLM for story, Diffusion for images)
+- Generates 10-14 page comics with 4-6 panels per page
+- Each panel has: image, dialogue, emotion, camera angle
+
+YOUR COMPLETE MISSION:
+Build a professional, production-ready React frontend with 4 main pages, full routing, responsive design, animations, and complete user experience flow.
+
+═══════════════════════════════════════════════════════════════════
+TECH STACK (EXACT REQUIREMENTS)
+═══════════════════════════════════════════════════════════════════
+
+CORE:
+- React 18+ (with Vite as build tool)
+- React Router v6 (routing)
+- Tailwind CSS (styling only, no other CSS frameworks)
+
+STATE & DATA:
+- React Context API OR Zustand (state management)
+- Axios (API calls)
+
+UI & UX:
+- Lucide React (icons)
+- React Hot Toast (notifications)
+- Framer Motion (animations - optional but recommended)
+- React Intersection Observer (scroll animations - optional)
+
+FONTS:
+- Google Fonts: "Bangers" (comic headings), "Inter" (body text)
+
+═══════════════════════════════════════════════════════════════════
+COMPLETE FILE STRUCTURE
+═══════════════════════════════════════════════════════════════════
+
+Create this exact folder structure:
+comic-generator-frontend/
+│
+├── public/
+│   └── sample-comics/          # Placeholder images for home page
+│       ├── sample1.jpg
+│       ├── sample2.jpg
+│       └── sample3.jpg
+│
+├── src/
+│   │
+│   ├── components/
+│   │   │
+│   │   ├── home/
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── FeaturesSection.jsx
+│   │   │   ├── HowItWorksSection.jsx
+│   │   │   ├── SampleShowcase.jsx
+│   │   │   └── index.jsx
+│   │   │
+│   │   ├── creator/
+│   │   │   ├── InputForm.jsx
+│   │   │   ├── GenerationProgress.jsx
+│   │   │   ├── StatusDisplay.jsx
+│   │   │   └── index.jsx
+│   │   │
+│   │   ├── viewer/
+│   │   │   ├── PageDisplay.jsx
+│   │   │   ├── PanelGrid.jsx
+│   │   │   ├── Panel.jsx
+│   │   │   ├── SpeechBubble.jsx
+│   │   │   ├── EmotionBadge.jsx
+│   │   │   ├── NavigationControls.jsx
+│   │   │   ├── PageThumbnails.jsx
+│   │   │   ├── ZoomModal.jsx
+│   │   │   └── index.jsx
+│   │   │
+│   │   ├── gallery/
+│   │   │   ├── ComicCard.jsx
+│   │   │   ├── ComicsGrid.jsx
+│   │   │   ├── SearchBar.jsx
+│   │   │   ├── SortControls.jsx
+│   │   │   └── index.jsx
+│   │   │
+│   │   └── shared/
+│   │       ├── Header.jsx
+│   │       ├── Footer.jsx
+│   │       ├── Button.jsx
+│   │       ├── LoadingSpinner.jsx
+│   │       ├── LoadingSkeleton.jsx
+│   │       ├── EmptyState.jsx
+│   │       ├── Modal.jsx
+│   │       └── ErrorBoundary.jsx
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Creator.jsx
+│   │   ├── Viewer.jsx
+│   │   ├── Gallery.jsx
+│   │   └── NotFound.jsx
+│   │
+│   ├── context/
+│   │   ├── ComicContext.jsx
+│   │   └── ThemeContext.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── hooks/
+│   │   ├── useComic.js
+│   │   ├── useGeneration.js
+│   │   ├── useLocalStorage.js
+│   │   └── useKeyboardNav.js
+│   │
+│   ├── utils/
+│   │   ├── constants.js
+│   │   ├── helpers.js
+│   │   └── validators.js
+│   │
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── index.html
+└── README.md
+
+═══════════════════════════════════════════════════════════════════
+PAGE 1: HOME PAGE (/) - LANDING PAGE
+═══════════════════════════════════════════════════════════════════
+
+PURPOSE: Welcome users, explain the product, provide clear CTAs
+
+LAYOUT SECTIONS:
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       NAVIGATION BAR                            │
+│  [Logo] AI Comic Generator        [Gallery] [Create] [About]   │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        HERO SECTION                             │
+│                  (Full viewport height)                         │
+│                                                                 │
+│        🎨 Create Stunning AI Comics in Minutes                 │
+│                                                                 │
+│   Transform your ideas into complete comic books with          │
+│        emotion-driven AI storytelling and art                  │
+│                                                                 │
+│         [Start Creating →]    [View Gallery]                   │
+│                                                                 │
+│           (Gradient background: indigo → purple)               │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                      FEATURES SECTION                           │
+│                   "What Makes Us Special"                       │
+│                                                                 │
+│    ┌─────────────┐   ┌─────────────┐   ┌─────────────┐       │
+│    │    🎨       │   │     📖      │   │     ⚡      │       │
+│    │             │   │             │   │             │       │
+│    │ AI-Powered  │   │  Complete   │   │  Lightning  │       │
+│    │    Art      │   │   Stories   │   │    Fast     │       │
+│    │             │   │             │   │             │       │
+│    │ Generate    │   │ 10-14 page  │   │ Full comic  │       │
+│    │ unique      │   │ narratives  │   │ in under    │       │
+│    │ panels with │   │ with depth  │   │ 10 minutes  │       │
+│    │ advanced AI │   │ and emotion │   │             │       │
+│    └─────────────┘   └─────────────┘   └─────────────┘       │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    HOW IT WORKS SECTION                         │
+│                   "Three Simple Steps"                          │
+│                                                                 │
+│  ┌─────────┐         ┌─────────┐         ┌─────────┐         │
+│  │ Step 1  │  ────>  │ Step 2  │  ────>  │ Step 3  │         │
+│  │         │         │         │         │         │         │
+│  │ Enter   │         │   AI    │         │  Read   │         │
+│  │  Your   │         │ Writes  │         │   &     │         │
+│  │  Idea   │         │   &     │         │  Share  │         │
+│  │         │         │  Draws  │         │         │         │
+│  └─────────┘         └─────────┘         └─────────┘         │
+│                                                                 │
+│  Describe your      Our AI creates      Enjoy your comic      │
+│  story idea         10-14 pages of      and share with        │
+│  and style          illustrated story    friends!             │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                   SAMPLE SHOWCASE SECTION                       │
+│                  "Featured Comic Creations"                     │
+│                                                                 │
+│    ← [Comic Cover 1]  [Comic Cover 2]  [Comic Cover 3] →      │
+│                                                                 │
+│       Each card shows:                                          │
+│       - Cover image (first panel thumbnail)                    │
+│       - Comic title                                             │
+│       - Page count                                              │
+│       - "View Comic" button                                     │
+│                                                                 │
+│       (Horizontal scrolling carousel, auto-scroll)             │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    CALL TO ACTION SECTION                       │
+│                                                                 │
+│              Ready to Create Your Masterpiece?                 │
+│                                                                 │
+│                   [Get Started Now →]                          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                           FOOTER                                │
+│                                                                 │
+│  AI Comic Generator                                             │
+│  Built with ❤️ for [University Name] Capstone Project         │
+│                                                                 │
+│  [About] [Privacy] [Contact] [GitHub]                          │
+│                                                                 │
+│  © 2026 AI Comic Generator. All rights reserved.               │
+└─────────────────────────────────────────────────────────────────┘
+
+COMPONENT DETAILS:
+
+1. HeroSection.jsx:
+   - Full viewport height background with gradient
+   - Animated heading (fade in from top)
+   - Two primary CTA buttons
+   - Particle/pattern background effect (optional)
+   - Responsive: stack buttons on mobile
+
+2. FeaturesSection.jsx:
+   - 3 feature cards in a row (grid layout)
+   - Each card: icon, title, description
+   - Hover effects: lift, shadow increase
+   - Scroll animation: fade in when visible
+   - Responsive: 1 column mobile, 2 tablet, 3 desktop
+
+3. HowItWorksSection.jsx:
+   - Horizontal timeline with 3 steps
+   - Arrows connecting steps
+   - Step number badges
+   - Icons for each step
+   - Responsive: vertical timeline on mobile
+
+4. SampleShowcase.jsx:
+   - Horizontal scrolling carousel
+   - 3-4 sample comic cards visible
+   - Auto-scroll every 5 seconds
+   - Click to view comic (navigate to viewer)
+   - If no backend data: use placeholder images
+   - Snap scrolling enabled
+
+STYLING REQUIREMENTS:
+- Background: Gradient from indigo-600 to purple-600 (hero)
+- Card backgrounds: white with shadow-lg
+- Animations: Smooth fade-ins on scroll
+- Typography: "Bangers" for headings, "Inter" for body
+- Spacing: Generous padding (py-16 to py-24 for sections)
+
+═══════════════════════════════════════════════════════════════════
+PAGE 2: COMIC CREATOR (/create)
+═══════════════════════════════════════════════════════════════════
+
+PURPOSE: User inputs story parameters and monitors generation
+
+LAYOUT:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  ← Back to Home          Create Your Comic                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                      INPUT FORM SECTION                         │
+│                   (Centered card, max-w-2xl)                    │
+│                                                                 │
+│  ┌───────────────────────────────────────────────────────┐    │
+│  │                                                         │    │
+│  │  📝 Story Topic                                        │    │
+│  │  ┌───────────────────────────────────────────────┐    │    │
+│  │  │ e.g., A superhero origin story                │    │    │
+│  │  └───────────────────────────────────────────────┘    │    │
+│  │                                                         │    │
+│  │  🎨 Art Style                                          │    │
+│  │  ┌───────────────────────────────────────────────┐    │    │
+│  │  │ [Manga ▼] Western / Cartoon / Realistic       │    │    │
+│  │  └───────────────────────────────────────────────┘    │    │
+│  │                                                         │    │
+│  │  📚 Number of Pages: 12                                │    │
+│  │  ├────────○──────────┤  (10-14 slider)               │    │
+│  │                                                         │    │
+│  │  😊 Emotion Intensity: Dramatic                        │    │
+│  │  ├─────────────○─────┤  (Subtle to Dramatic)         │    │
+│  │                                                         │    │
+│  │             [Generate Comic →]                         │    │
+│  │                                                         │    │
+│  └───────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+
+WHEN GENERATING (Replace form with progress UI):
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    GENERATION IN PROGRESS                       │
+│                                                                 │
+│  ┌───────────────────────────────────────────────────────┐    │
+│  │                                                         │    │
+│  │           Creating Your Comic... 🎨                    │    │
+│  │                                                         │    │
+│  │  ████████████████░░░░░░░░░  65%                       │    │
+│  │                                                         │    │
+│  │  Current Step: 2 of 3                                  │    │
+│  │  ✍️ Generating panel 47 of 72...                      │    │
+│  │                                                         │    │
+│  │  Estimated time remaining: 3 minutes 20 seconds       │    │
+│  │                                                         │    │
+│  │  ┌─────────────────────────────────────────────┐      │    │
+│  │  │ ✅ Step 1: Story script completed           │      │    │
+│  │  │ 🎨 Step 2: Generating artwork (65%)...      │      │    │
+│  │  │ ⏳ Step 3: Assembling pages (waiting)       │      │    │
+│  │  └─────────────────────────────────────────────┘      │    │
+│  │                                                         │    │
+│  │              [Cancel Generation]                       │    │
+│  │                                                         │    │
+│  └───────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+
+COMPONENT DETAILS:
+
+1. InputForm.jsx:
+   Fields:
+   - Topic: Text input, required, min 10 chars
+   - Art Style: Dropdown (manga, western, cartoon, realistic)
+   - Page Count: Range slider (10-14), shows current value
+   - Emotion Intensity: Range slider (subtle to dramatic)
+   - Submit button: Large, primary style, disabled during generation
+   
+   Validation:
+   - Topic cannot be empty
+   - Show error messages in red below fields
+   - Disable submit if validation fails
+
+2. GenerationProgress.jsx:
+   - Large progress bar (0-100%)
+   - Animated progress fill
+   - Step indicator (1/3, 2/3, 3/3)
+   - Current action text with emoji
+   - Countdown timer for estimated completion
+   - Three-step breakdown:
+     * Step 1: Writing story script ✍️
+     * Step 2: Generating panels 🎨 (shows X of 72)
+     * Step 3: Assembling pages 📚
+   - Cancel button (confirm before canceling)
+
+3. StatusDisplay.jsx:
+   - Shows completed steps with checkmarks
+   - Current step highlighted
+   - Pending steps grayed out
+   - Smooth transitions between states
+
+API INTEGRATION:
+
+Endpoint: POST /api/generate
+Request body:
+````json
+{
+  "topic": "A superhero origin story",
+  "style": "manga",
+  "num_pages": 12,
+  "emotion_intensity": "dramatic"
+}
+````
+
+Response:
+````json
+{
+  "comic_id": "abc123",
+  "status": "processing",
+  "progress": 0
+}
+````
+
+Polling: GET /api/status/{comic_id}
+- Poll every 2 seconds while status is "processing"
+- Response includes: {status, progress, current_step, panels_completed}
+
+On completion (status = "completed"):
+- Show success toast: "Your comic is ready! 🎉"
+- Redirect to /comic/{comic_id}
+
+Error handling:
+- Network errors: Show toast with retry button
+- Validation errors: Display under input fields
+- Generation failures: Show error modal with details
+
+STYLING:
+- Form card: white background, shadow-xl, rounded-lg
+- Input fields: border-gray-300, focus:border-indigo-500
+- Progress bar: bg-indigo-600, smooth animation
+- Buttons: Primary (indigo), Cancel (red outline)
+
+═══════════════════════════════════════════════════════════════════
+PAGE 3: COMIC VIEWER (/comic/:id)
+═══════════════════════════════════════════════════════════════════
+
+PURPOSE: Display generated comic with full reading experience
+
+LAYOUT:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  ← Gallery    [Comic Title]    Page 3 of 12    [Share ▼] [PDF] │
+│                        (Sticky top bar)                         │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       MAIN PANEL GRID                           │
+│                    (Current page display)                       │
+│                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐                     │
+│  │                 │  │                 │                     │
+│  │    Panel 1      │  │    Panel 2      │                     │
+│  │                 │  │                 │                     │
+│  │  [Image]        │  │  [Image]        │                     │
+│  │                 │  │                 │                     │
+│  │  ┌───────────┐  │  │  ┌───────────┐  │                     │
+│  │  │ Dialogue  │  │  │  │ Dialogue  │  │  😊 Emotion         │
+│  │  └───────────┘  │  │  └───────────┘  │  Badge              │
+│  └─────────────────┘  └─────────────────┘                     │
+│                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐                     │
+│  │    Panel 3      │  │    Panel 4      │                     │
+│  │  [Image]        │  │  [Image]        │                     │
+│  │  ┌───────────┐  │  │  ┌───────────┐  │                     │
+│  │  │ Dialogue  │  │  │  │ Dialogue  │  │                     │
+│  │  └───────────┘  │  │  └───────────┘  │                     │
+│  └─────────────────┘  └─────────────────┘                     │
+│                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐                     │
+│  │    Panel 5      │  │    Panel 6      │                     │
+│  │  [Image]        │  │  [Image]        │                     │
+│  │  ┌───────────┐  │  │                 │                     │
+│  │  │ Dialogue  │  │  │  (no dialogue)  │                     │
+│  │  └───────────┘  │  │                 │                     │
+│  └─────────────────┘  └─────────────────┘                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    NAVIGATION CONTROLS                          │
+│                                                                 │
+│  [← Prev]  [1][2][3][4][5][6][7][8][9][10][11][12]  [Next →]  │
+│            ────────────────────────────────                     │
+│            (Horizontal thumbnail strip)                         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+WHEN PANEL IS CLICKED (Zoom Modal):
+
+┌─────────────────────────────────────────────────────────────────┐
+│                                                              [✕] │
+│                                                                 │
+│                     ┌─────────────────┐                        │
+│                     │                 │                        │
+│                     │                 │                        │
+│                     │  Panel Image    │                        │
+│                     │  (Full Size)    │                        │
+│                     │                 │                        │
+│                     │                 │                        │
+│                     │  ┌───────────┐  │                        │
+│                     │  │           │  │                        │
+│                     │  │ Dialogue  │  │                        │
+│                     │  │ (Larger)  │  │                        │
+│                     │  │           │  │                        │
+│                     │  └───────────┘  │                        │
+│                     └─────────────────┘                        │
+│                                                                 │
+│              (Dark backdrop, click outside to close)           │
+└─────────────────────────────────────────────────────────────────┘
+
+COMPONENT DETAILS:
+
+1. PageDisplay.jsx:
+   - Main container for current page
+   - Manages panel layout (grid system)
+   - Responsive: 1 column mobile, 2 columns tablet+
+   - Handles page transitions (slide animation)
+
+2. PanelGrid.jsx:
+   - CSS Grid layout for panels
+   - Adapts to panel count:
+     * 4 panels → 2×2 grid
+     * 6 panels → 2×3 or 3×2 grid
+     * 5 panels → asymmetric layout (2 top, 3 bottom)
+   - Gap between panels: 8px
+   - Responsive sizing
+
+3. Panel.jsx:
+   Props: {imageUrl, dialogue, emotion, cameraAngle}
+   
+   Structure:
+   - Container with black border (3px)
+   - Image fills container (object-fit: cover)
+   - Speech bubble overlay (bottom-center)
+   - Emotion badge (top-right corner)
+   - Camera angle label (bottom-left, subtle)
+   - Click to open zoom modal
+   - Hover effects: scale(1.02), shadow increase
+
+4. SpeechBubble.jsx:
+   Styling:
+   - Background: white (#FFFFFF)
+   - Border: 2px solid black
+   - Border-radius: 12px
+   - Padding: 12px 16px
+   - Font: "Bangers" or "Comic Neue"
+   - Font-size: 14px (responsive)
+   - Max-width: 85% of panel width
+   - Position: absolute, bottom 16px, center
+   - Comic tail: CSS triangle (8px), points down-center
+   - Shadow: 0 2px 4px rgba(0,0,0,0.1)
+   - Text wrapping enabled
+   - Only renders if dialogue exists
+
+5. EmotionBadge.jsx:
+   Props: {emotion}
+   
+   Color mapping:
+   - happy → bg-green-500, text-white, icon: 😊
+   - sad → bg-blue-500, text-white, icon: 😢
+   - angry → bg-red-500, text-white, icon: 😠
+   - surprised → bg-yellow-500, text-black, icon: 😲
+   - neutral → bg-gray-500, text-white, icon: 😐
+   - scared → bg-purple-500, text-white, icon: 😨
+   
+   Styling:
+   - Position: absolute, top-right (8px from edges)
+   - Pill shape: rounded-full
+   - Padding: 4px 8px
+   - Font-size: 12px
+   - Format: "[Icon] [Emotion]"
+   - Semi-transparent background
+
+6. NavigationControls.jsx:
+   - Previous button (left arrow, disabled on page 1)
+   - Next button (right arrow, disabled on last page)
+   - Keyboard shortcuts:
+     * Left arrow → previous page
+     * Right arrow → next page
+     * ESC → close zoom modal
+   - Smooth page transitions
+
+7. PageThumbnails.jsx:
+   - Horizontal scrollable strip
+   - Shows all page numbers (1-12 or 1-14)
+   - Each thumbnail:
+     * Mini preview of page (first panel)
+     * Page number overlay
+     * Click to jump to page
+   - Active page highlighted (border, glow)
+   - Auto-scroll to keep active page centered
+   - Responsive: smaller on mobile
+
+8. ZoomModal.jsx:
+   - Dark backdrop (bg-black/80)
+   - Panel centered, max 90vh/90vw
+   - Panel image at full resolution
+   - Dialogue shown larger and clearer
+   - Close button (X) top-right
+   - Click outside modal to close
+   - ESC key to close
+   - Fade-in animation (200ms)
+   - Prevent body scroll when open
+
+TOP NAVIGATION BAR:
+- Sticky position (stays at top while scrolling)
+- Back to Gallery button (left)
+- Comic title (center)
+- Page indicator: "Page X of Y"
+- Share dropdown:
+  * Copy link
+  * Share to Twitter
+  * Share to Facebook
+- Export to PDF button
+- Background: white, shadow-md
+
+API INTEGRATION:
+
+Endpoint: GET /api/comic/{comic_id}
+
+Response:
+````json
+{
+  "id": "abc123",
+  "title": "The Origin of Nova",
+  "genre": "Superhero",
+  "style": "manga",
+  "created_at": "2026-02-04T14:30:00Z",
+  "num_pages": 12,
+  "pages": [
+    {
+      "page_number": 1,
+      "panels": [
+        {
+          "panel_number": 1,
+          "image_url": "/api/images/abc123/page1/panel1.png",
+          "dialogue": "In a world where heroes are born from tragedy...",
+          "emotion": "neutral",
+          "camera_angle": "wide",
+          "character": "Narrator"
+        },
+        {
+          "panel_number": 2,
+          "image_url": "/api/images/abc123/page1/panel2.png",
+          "dialogue": "I never asked for this power!",
+          "emotion": "angry",
+          "camera_angle": "close-up",
+          "character": "Nova"
+        }
+        // ... 4-6 panels per page
+      ]
+    }
+    // ... all pages
+  ]
+}
+````
+
+Error handling:
+- Comic not found (404): Show "Comic not found" page with back button
+- Loading state: Show skeleton loader for panels
+- Image load errors: Show placeholder with retry button
+
+STYLING:
+- Panel borders: 3px solid black
+- Panel shadows: 0 4px 6px rgba(0,0,0,0.1)
+- Panel hover: transform scale(1.02), shadow increase
+- Page transitions: slide animation, 300ms
+- Grid gap: 8px
+- Background: slate-100
+
+RESPONSIVE:
+- Desktop (>1024px): 2-3 column grid, large panels
+- Tablet (640-1024px): 2 column grid, medium panels
+- Mobile (<640px): 1 column grid, full-width panels
+
+═══════════════════════════════════════════════════════════════════
+PAGE 4: GALLERY (/gallery)
+═══════════════════════════════════════════════════════════════════
+
+PURPOSE: Browse all previously generated comics
+
+LAYOUT:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  ← Home                    Your Comic Collection                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       CONTROLS BAR                              │
+│                                                                 │
+│  [🔍 Search comics...]    [Sort: Newest ▼]    [+ Create New]   │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        COMICS GRID                              │
+│                                                                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   [Cover]   │  │   [Cover]   │  │   [Cover]   │            │
+│  │             │  │             │  │             │            │
+│  │ Comic Title │  │ Comic Title │  │ Comic Title │            │
+│  │ 12 pages    │  │ 10 pages    │  │ 14 pages    │            │
+│  │ 2 days ago  │  │ 5 days ago  │  │ 1 week ago  │            │
+│  │             │  │             │  │             │            │
+│  │[View] [🗑️]  │  │[View] [🗑️]  │  │[View] [🗑️]  │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+│                                                                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   [Cover]   │  │   [Cover]   │  │   [Cover]   │            │
+│  │ Comic Title │  │ Comic Title │  │ Comic Title │            │
+│  │ 12 pages    │  │ 12 pages    │  │ 11 pages    │            │
+│  │ 2 weeks ago │  │ 3 weeks ago │  │ 1 month ago │            │
+│  │[View] [🗑️]  │  │[View] [🗑️]  │  │[View] [🗑️]  │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                       PAGINATION                                │
+│              ← Previous  1 2 [3] 4 5  Next →                   │
+└─────────────────────────────────────────────────────────────────┘
+
+IF NO COMICS EXIST (Empty State):
+
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                        📚                                       │
+│                                                                 │
+│                  No Comics Yet                                  │
+│                                                                 │
+│           Create your first comic masterpiece!                  │
+│                                                                 │
+│                 [Start Creating →]                              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+COMPONENT DETAILS:
+
+1. SearchBar.jsx:
+   - Text input with search icon
+   - Placeholder: "Search by title..."
+   - Debounced search (300ms delay)
+   - Real-time filtering of comics
+   - Clear button (X) when text exists
+   - Focus state: border highlight
+
+2. SortControls.jsx:
+   - Dropdown selector
+   - Options:
+     * Newest First (created_at DESC)
+     * Oldest First (created_at ASC)
+     * Title A-Z
+     * Title Z-A
+     * Most Pages
+   - Updates grid immediately on change
+
+3. ComicCard.jsx:
+   Props: {comic: {id, title, coverImage, pageCount, createdAt}}
+   
+   Structure:
+   - Card container (white background, shadow, rounded)
+   - Cover image (16:9 aspect ratio, first panel of page 1)
+   - Title (truncate if too long)
+   - Metadata:
+     * Page count icon + number
+     * Created date (relative: "2 days ago")
+   - Action buttons:
+     * View (primary button, navigates to /comic/:id)
+     * Delete (trash icon, red, shows confirmation)
+   - Hover effects: lift (translateY(-4px)), shadow increase
+
+4. ComicsGrid.jsx:
+   - Responsive grid:
+     * Mobile: 1 column
+     * Tablet: 2 columns
+     * Desktop: 3-4 columns
+   - Gap: 24px
+   - Load more on scroll (infinite scroll optional)
+   - Handles empty state
+   - Loading state: skeleton cards
+
+5. EmptyState.jsx:
+   - Large icon (empty folder, book)
+   - Heading: "No comics yet"
+   - Description text
+   - CTA button: "Start Creating"
+   - Centered vertically and horizontally
+
+DELETE CONFIRMATION MODAL:
+When user clicks delete icon:
+- Modal appears
+- Title: "Delete Comic?"
+- Message: "Are you sure you want to delete '[Comic Title]'? This action cannot be undone."
+- Buttons:
+  * Cancel (secondary, gray)
+  * Delete (primary, red)
+- On confirm: API call, show toast, remove from grid
+
+API INTEGRATION:
+
+Endpoint: GET /api/comics
+Query params: ?page=1&limit=12&sort=newest&search=hero
+
+Response:
+````json
+{
+  "comics": [
+    {
+      "id": "abc123",
+      "title": "The Origin of Nova",
+      "cover_image": "/api/images/abc123/page1/panel1.png",
+      "page_count": 12,
+      "created_at": "2026-02-02T10:30:00Z",
+      "style": "manga",
+      "genre": "superhero"
+    }
+  ],
+  "total": 45,
+  "page": 1,
+  "pages": 4
+}
+````
+
+Endpoint: DELETE /api/comic/{comic_id}
+- Returns: {success: true, message: "Comic deleted"}
+- On success: Remove from state, show toast
+
+PAGINATION:
+- Show 12 comics per page
+- Page numbers at bottom
+- Previous/Next buttons
+- Current page highlighted
+- Disable prev/next at boundaries
+
+STYLING:
+- Cards: white, shadow-md, hover:shadow-lg
+- Grid: gap-6
+- Cover images: object-fit cover, rounded-t-lg
+- Buttons: View (indigo), Delete (red)
+- Empty state: text-gray-500, centered
+
+═══════════════════════════════════════════════════════════════════
+PAGE 5: 404 NOT FOUND (/*)
+═══════════════════════════════════════════════════════════════════
+
+PURPOSE: Handle invalid routes with comic-themed error page
+
+LAYOUT:
+
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                         💥                                      │
+│                                                                 │
+│                    404: Page Not Found!                         │
+│                                                                 │
+│           Looks like this page escaped the comic book...        │
+│                                                                 │
+│                    [← Back to Home]                             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+COMPONENT: NotFound.jsx
+- Centered layout
+- Comic-style explosion icon or illustration
+- Large "404" in comic font
+- Humorous message
+- Button to return home
+- Can include comic-style "POW!" "BAM!" effects
+
+═══════════════════════════════════════════════════════════════════
+SHARED COMPONENTS (components/shared/)
+═══════════════════════════════════════════════════════════════════
+
+1. Header.jsx:
+   - Site-wide navigation bar
+   - Logo/brand name (left)
+   - Navigation links (center/right):
+     * Home
+     * Create
+     * Gallery
+   - Responsive: hamburger menu on mobile
+   - Sticky or fixed position (optional)
+
+2. Footer.jsx:
+   - App name and tagline
+   - Links: About, Privacy, Contact, GitHub
+   - Copyright notice
+   - Social media icons (optional)
+   - Background: dark gray or black
+   - Text: white/gray
+
+3. Button.jsx:
+   Props: {children, variant, size, onClick, disabled, icon}
+   
+   Variants:
+   - primary: indigo-600 background, white text
+   - secondary: white background, indigo-600 border and text
+   - danger: red-600 background, white text
+   - ghost: transparent, text only
+   
+   Sizes:
+   - sm: px-3 py-1.5, text-sm
+   - md: px-6 py-3, text-base (default)
+   - lg: px-8 py-4, text-lg
+   
+   Features:
+   - Disabled state: opacity-50, cursor-not-allowed
+   - Hover effects: background darken, shadow
+   - Icon support (before or after text)
+   - Loading state (spinner replaces icon)
+
+4. LoadingSpinner.jsx:
+   - Animated spinner (CSS or SVG)
+   - Sizes: sm, md, lg
+   - Colors: match theme
+   - Optional text: "Loading..."
+   - Center alignment option
+
+5. LoadingSkeleton.jsx:
+   - Gray placeholder boxes
+   - Pulse animation
+   - Variants:
+     * Text line (different widths)
+     * Image rectangle
+     * Card layout
+     * Grid of cards
+   - Matches actual content dimensions
+
+6. EmptyState.jsx:
+   Props: {icon, title, description, actionLabel, onAction}
+   - Centered container
+   - Large icon
+   - Heading and description
+   - Optional CTA button
+   - Used for: no comics, no results, errors
+
+7. Modal.jsx:
+   Props: {isOpen, onClose, title, children, footer}
+   - Dark backdrop (semi-transparent)
+   - White modal box (centered)
+   - Close X button (top-right)
+   - Header with title
+   - Content area (scrollable if tall)
+   - Footer with action buttons
+   - Click outside or ESC to close
+   - Prevent body scroll when open
+   - Fade-in animation
+
+8. ErrorBoundary.jsx:
+   - React error boundary
+   - Catches component errors
+   - Shows fallback UI:
+     * Error icon
+     * "Something went wrong"
+     * Reload button
+   - Logs error to console
+   - Prevents full app crash
+
+═══════════════════════════════════════════════════════════════════
+CONTEXT & STATE MANAGEMENT
+═══════════════════════════════════════════════════════════════════
+
+1. ComicContext.jsx:
+   State:
+   - currentComic: {id, title, pages, ...}
+   - galleryComics: [{}, {}, ...]
+   - generationStatus: {progress, step, message}
+   - isGenerating: boolean
+   
+   Actions:
+   - setCurrentComic(comic)
+   - addComicToGallery(comic)
+   - removeComicFromGallery(id)
+   - updateGenerationStatus(status)
+   - clearCurrentComic()
+   
+   Provider wraps entire app
+
+2. ThemeContext.jsx (Optional):
+   State:
+   - theme: 'light' | 'dark'
+   
+   Actions:
+   - toggleTheme()
+   - setTheme(theme)
+   
+   Persists to localStorage
+
+═══════════════════════════════════════════════════════════════════
+SERVICES & API (services/api.js)
+═══════════════════════════════════════════════════════════════════
+
+Axios instance with base configuration:
+````javascript
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:8000/api',
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Request interceptor (add auth token if needed)
+api.interceptors.request.use(
+  (config) => {
+    // Add timestamp or auth token
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor (handle errors globally)
+api.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    // Handle 404, 500, network errors
+    console.error('API Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// API Methods
+export const comicAPI = {
+  // Generate new comic
+  generateComic: (data) => api.post('/generate', data),
+  
+  // Get generation status
+  getStatus: (comicId) => api.get(`/status/${comicId}`),
+  
+  // Get comic by ID
+  getComic: (comicId) => api.get(`/comic/${comicId}`),
+  
+  // Get all comics
+  getComics: (params) => api.get('/comics', { params }),
+  
+  // Delete comic
+  deleteComic: (comicId) => api.delete(`/comic/${comicId}`),
+  
+  // Cancel generation
+  cancelGeneration: (comicId) => api.post(`/cancel/${comicId}`),
+};
+
+export default api;
+````
+
+═══════════════════════════════════════════════════════════════════
+CUSTOM HOOKS (hooks/)
+═══════════════════════════════════════════════════════════════════
+
+1. useComic.js:
+````javascript
+   import { useContext } from 'react';
+   import { ComicContext } from '../context/ComicContext';
+   
+   export const useComic = () => {
+     const context = useContext(ComicContext);
+     if (!context) {
+       throw new Error('useComic must be used within ComicProvider');
+     }
+     return context;
+   };
+````
+
+2. useGeneration.js:
+````javascript
+   import { useState, useEffect } from 'react';
+   import { comicAPI } from '../services/api';
+   
+   export const useGeneration = (comicId) => {
+     const [status, setStatus] = useState(null);
+     const [error, setError] = useState(null);
+     
+     useEffect(() => {
+       if (!comicId) return;
+       
+       const pollStatus = setInterval(async () => {
+         try {
+           const data = await comicAPI.getStatus(comicId);
+           setStatus(data);
+           
+           if (data.status === 'completed' || data.status === 'failed') {
+             clearInterval(pollStatus);
+           }
+         } catch (err) {
+           setError(err);
+           clearInterval(pollStatus);
+         }
+       }, 2000);
+       
+       return () => clearInterval(pollStatus);
+     }, [comicId]);
+     
+     return { status, error };
+   };
+````
+
+3. useLocalStorage.js:
+````javascript
+   import { useState, useEffect } from 'react';
+   
+   export const useLocalStorage = (key, initialValue) => {
+     const [value, setValue] = useState(() => {
+       const stored = localStorage.getItem(key);
+       return stored ? JSON.parse(stored) : initialValue;
+     });
+     
+     useEffect(() => {
+       localStorage.setItem(key, JSON.stringify(value));
+     }, [key, value]);
+     
+     return [value, setValue];
+   };
+````
+
+4. useKeyboardNav.js:
+````javascript
+   import { useEffect } from 'react';
+   
+   export const useKeyboardNav = (handlers) => {
+     useEffect(() => {
+       const handleKeyPress = (e) => {
+         if (handlers[e.key]) {
+           e.preventDefault();
+           handlers[e.key]();
+         }
+       };
+       
+       window.addEventListener('keydown', handleKeyPress);
+       return () => window.removeEventListener('keydown', handleKeyPress);
+     }, [handlers]);
+   };
+````
+
+═══════════════════════════════════════════════════════════════════
+UTILITIES (utils/)
+═══════════════════════════════════════════════════════════════════
+
+1. constants.js:
+````javascript
+   export const API_BASE_URL = 'http://localhost:8000/api';
+   
+   export const ART_STYLES = [
+     { value: 'manga', label: 'Manga' },
+     { value: 'western', label: 'Western' },
+     { value: 'cartoon', label: 'Cartoon' },
+     { value: 'realistic', label: 'Realistic' },
+   ];
+   
+   export const EMOTION_COLORS = {
+     happy: 'bg-green-500',
+     sad: 'bg-blue-500',
+     angry: 'bg-red-500',
+     surprised: 'bg-yellow-500',
+     neutral: 'bg-gray-500',
+     scared: 'bg-purple-500',
+   };
+   
+   export const EMOTION_ICONS = {
+     happy: '😊',
+     sad: '😢',
+     angry: '😠',
+     surprised: '😲',
+     neutral: '😐',
+     scared: '😨',
+   };
+   
+   export const PAGE_LIMITS = {
+     min: 10,
+     max: 14,
+     default: 12,
+   };
+````
+
+2. helpers.js:
+````javascript
+   // Format date to relative time
+   export const formatRelativeTime = (dateString) => {
+     const date = new Date(dateString);
+     const now = new Date();
+     const diffMs = now - date;
+     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+     
+     if (diffDays === 0) return 'Today';
+     if (diffDays === 1) return 'Yesterday';
+     if (diffDays < 7) return `${diffDays} days ago`;
+     if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+     return `${Math.floor(diffDays / 30)} months ago`;
+   };
+   
+   // Format time remaining
+   export const formatTimeRemaining = (seconds) => {
+     const mins = Math.floor(seconds / 60);
+     const secs = seconds % 60;
+     return `${mins}:${secs.toString().padStart(2, '0')}`;
+   };
+   
+   // Truncate text
+   export const truncate = (text, maxLength) => {
+     if (text.length <= maxLength) return text;
+     return text.slice(0, maxLength) + '...';
+   };
+   
+   // Get panel layout based on count
+   export const getPanelLayout = (panelCount) => {
+     switch (panelCount) {
+       case 4: return { cols: 2, rows: 2 };
+       case 6: return { cols: 2, rows: 3 };
+       case 5: return { cols: 2, rows: 3, asymmetric: true };
+       default: return { cols: 2, rows: 3 };
+     }
+   };
+````
+
+3. validators.js:
+````javascript
+   export const validateTopic = (topic) => {
+     if (!topic || topic.trim().length === 0) {
+       return 'Topic is required';
+     }
+     if (topic.trim().length < 10) {
+       return 'Topic must be at least 10 characters';
+     }
+     return null;
+   };
+   
+   export const validatePageCount = (count) => {
+     if (count < 10 || count > 14) {
+       return 'Page count must be between 10 and 14';
+     }
+     return null;
+   };
+````
+
+═══════════════════════════════════════════════════════════════════
+ROUTING CONFIGURATION (App.jsx)
+═══════════════════════════════════════════════════════════════════
+````javascript
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ComicProvider } from './context/ComicContext';
+import { Toaster } from 'react-hot-toast';
+
+import Home from './pages/Home';
+import Creator from './pages/Creator';
+import Viewer from './pages/Viewer';
+import Gallery from './pages/Gallery';
+import NotFound from './pages/NotFound';
+
+import Header from './components/shared/Header';
+import Footer from './components/shared/Footer';
+import ErrorBoundary from './components/shared/ErrorBoundary';
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <ComicProvider>
+        <BrowserRouter>
+          <div className="min-h-screen flex flex-col bg-slate-50">
+            <Header />
+            
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/create" element={<Creator />} />
+                <Route path="/comic/:id" element={<Viewer />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            
+            <Footer />
+          </div>
+          
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#10b981',
+                  secondary: '#fff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#fff',
+                },
+              },
+            }}
+          />
+        </BrowserRouter>
+      </ComicProvider>
+    </ErrorBoundary>
+  );
+}
+
+export default App;
+````
+
+═══════════════════════════════════════════════════════════════════
+STYLING SYSTEM (index.css + tailwind.config.js)
+═══════════════════════════════════════════════════════════════════
+
+index.css:
+````css
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Speech bubble tail */
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid black;
+  }
+  
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid white;
+    z-index: 1;
+  }
+  
+  /* Comic panel styles */
+  .comic-panel {
+    @apply border-3 border-black bg-white shadow-md transition-all duration-200;
+  }
+  
+  .comic-panel:hover {
+    @apply shadow-xl transform scale-102;
+  }
+  
+  /* Page transition animations */
+  .page-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  
+  .page-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 300ms ease-out;
+  }
+  
+  .page-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .page-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 300ms ease-in;
+  }
+}
+
+@layer utilities {
+  .border-3 {
+    border-width: 3px;
+  }
+  
+  .scale-102 {
+    transform: scale(1.02);
+  }
+}
+````
+
+tailwind.config.js:
+````javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Bangers', 'cursive'],
+      },
+      colors: {
+        primary: {
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+        },
+        secondary: {
+          500: '#a855f7',
+          600: '#9333ea',
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.3s ease-in',
+        'slide-up': 'slideUp 0.4s ease-out',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+}
+````
+
+═══════════════════════════════════════════════════════════════════
+PACKAGE.JSON (Dependencies)
+═══════════════════════════════════════════════════════════════════
+````json
+{
+  "name": "ai-comic-generator-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "axios": "^1.6.2",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.294.0",
+    "framer-motion": "^10.16.16",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "vite": "^5.0.8"
+  }
+}
+````
+
+═══════════════════════════════════════════════════════════════════
+README.md
+═══════════════════════════════════════════════════════════════════
+````markdown
+# AI Comic Book Generator - Frontend
+
+A modern, responsive React application for generating AI-powered comic books.
+
+## Features
+
+- 🎨 Generate complete 10-14 page comics
+- 📖 Emotion-driven storytelling
+- ⚡ Real-time generation progress
+- 🖼️ Interactive comic viewer
+- 📚 Personal comic gallery
+- 📱 Fully responsive design
+
+## Tech Stack
+
+- **Framework**: React 18 + Vite
+- **Routing**: React Router v6
+- **Styling**: Tailwind CSS
+- **State**: React Context API / Zustand
+- **API**: Axios
+- **UI**: Lucide React, React Hot Toast
+- **Animations**: Framer Motion
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+   npm install
+```
+
+3. Start development server:
+```bash
+   npm run dev
+```
+
+4. Open http://localhost:5173
+
+## Project Structure
+````
+src/
+├── components/     # Reusable UI components
+├── pages/          # Page components (routes)
+├── context/        # React Context providers
+├── services/       # API integration
+├── hooks/          # Custom React hooks
+├── utils/          # Helper functions
+└── App.jsx         # Main app component
+API Endpoints
+The frontend expects a backend API at http://localhost:8000/api with these endpoints:
+
+POST /api/generate - Generate new comic
+GET /api/status/:id - Get generation status
+GET /api/comic/:id - Get comic data
+GET /api/comics - List all comics
+DELETE /api/comic/:id - Delete comic
+
+Building for Production
+bashnpm run build
+````
+
+The built files will be in the `dist/` directory.
+
+## License
+
+MIT License - Created for University Capstone Project
+````
+
+═══════════════════════════════════════════════════════════════════
+IMPLEMENTATION PRIORITY & TIMELINE
+═══════════════════════════════════════════════════════════════════
+
+WEEK 1: Foundation
+- ✅ Project setup (Vite + React + Tailwind)
+- ✅ Routing structure (App.jsx)
+- ✅ Shared components (Button, Header, Footer)
+- ✅ API service layer (api.js)
+- ✅ Context setup (ComicContext)
+
+WEEK 2: Home & Creator Pages
+- ✅ Home page (all sections)
+- ✅ Creator page (form + progress)
+- ✅ API integration for generation
+- ✅ Toast notifications
+
+WEEK 3: Viewer Page
+- ✅ Comic viewer layout
+- ✅ Panel grid system
+- ✅ Speech bubbles
+- ✅ Navigation controls
+- ✅ Zoom modal
+- ✅ Keyboard shortcuts
+
+WEEK 4: Gallery & Polish
+- ✅ Gallery page
+- ✅ Search and sort
+- ✅ Delete functionality
+- ✅ Loading states
+- ✅ Error handling
+- ✅ Responsive design testing
+
+WEEK 5: Final Polish
+- ✅ Animations (Framer Motion)
+- ✅ Accessibility improvements
+- ✅ Performance optimization
+- ✅ Documentation
+- ✅ Testing
+
+═══════════════════════════════════════════════════════════════════
+QUALITY CHECKLIST
+═══════════════════════════════════════════════════════════════════
+
+FUNCTIONALITY:
+- [ ] All 4 pages render correctly
+- [ ] Navigation works (routing)
+- [ ] Form validation works
+- [ ] Comic generation starts
+- [ ] Progress updates in real-time
+- [ ] Comics display correctly
+- [ ] Page navigation works
+- [ ] Gallery shows all comics
+- [ ] Search and filter work
+- [ ] Delete works with confirmation
+
+UI/UX:
+- [ ] Responsive on mobile, tablet, desktop
+- [ ] Loading states for all async operations
+- [ ] Error states handled gracefully
+- [ ] Empty states shown appropriately
+- [ ] Smooth animations and transitions
+- [ ] Keyboard navigation works
+- [ ] Toast notifications appear
+
+CODE QUALITY:
+- [ ] Components are modular and reusable
+- [ ] Code is well-commented
+- [ ] No console errors
+- [ ] No unused imports
+- [ ] Consistent naming conventions
+- [ ] PropTypes or TypeScript (optional)
+
+PERFORMANCE:
+- [ ] Images lazy load
+- [ ] No unnecessary re-renders
+- [ ] API calls are debounced where needed
+- [ ] Build size is reasonable (<500KB gzipped)
+
+ACCESSIBILITY:
+- [ ] Semantic HTML
+- [ ] ARIA labels where needed
+- [ ] Keyboard accessible
+- [ ] Focus indicators visible
+- [ ] Color contrast meets WCAG AA
+
+═══════════════════════════════════════════════════════════════════
+FINAL NOTES
+═══════════════════════════════════════════════════════════════════
+
+IMPORTANT REMINDERS:
+
+1. **Start Simple**: Build the basic structure first, add features incrementally
+2. **Test Often**: Check each component as you build it
+3. **Use Placeholder Data**: Don't wait for backend, use mock data initially
+4. **Comment Your Code**: Explain complex logic for your viva presentation
+5. **Keep It Clean**: Follow React best practices, keep components under 200 lines
+6. **Mobile First**: Design for mobile, then enhance for desktop
+7. **Error Handling**: Always handle API errors gracefully
+8. **User Feedback**: Show loading states, success messages, error messages
+9. **Performance**: Lazy load images, debounce inputs, memoize components
+10. **Documentation**: Write clear README, comment complex code
+
+BUILD ORDER:
+1. Setup project (Vite, Tailwind, routing)
+2. Create shared components (Button, Header, Footer, etc.)
+3. Build Home page
+4. Build Creator page
+5. Build Viewer page
+6. Build Gallery page
+7. Add animations and polish
+8. Test and fix bugs
+9. Write documentation
+10. Prepare for demo
+
+This is a complete, professional, production-ready frontend application. Follow this specification exactly, and you'll have an impressive capstone project.
+
+Good luck! 🚀
+
+🎯 How to Use This Prompt with Antigravity
+
+Copy the entire prompt above (from the first to the last)
+Paste it into Antigravity
+Let it work - It should:
+
+Set up the project structure
+Install all dependencies
+Create all components
+Wire up routing
+Implement API integration
+Add styling
+
+
+Iterate if needed:
+
+"Make the speech bubbles larger"
+"Add more padding to the home page hero"
+"Change the color scheme to red and black"
